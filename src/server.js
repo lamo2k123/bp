@@ -18,7 +18,6 @@ app.use(urlencoded({ extended: true }));
 app.use(json());
 
 app.get('*', (req, res, next) => {
-    console.log(1111111111)
     let statusCode = 200;
 /*
         let css = [];
