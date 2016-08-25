@@ -15,8 +15,6 @@ global.webpack = {
     type        : type ? 'server' : 'client'
 };
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
 module.exports = {
     context         : global.webpack.src,
     entry           : require('./entry'),
@@ -31,21 +29,6 @@ module.exports = {
         preLoaders  : require('./module.preLoaders'),
         loaders     : require('./module.loaders')
     },
-    plugins     : [
-        new webpack.DefinePlugin({
-            CLIENT      : global.webpack.client,
-            SERVER      : global.webpack.server,
-            PRODUCTION  : global.webpack.production,
-            DEVELOPMENT : global.webpack.development,
-
-            // @todo: ??
-            TYPE        : JSON.stringify(global.webpack.type),
-            ENV         : JSON.stringify(global.webpack.env)
-        }),
-        new ExtractTextPlugin('style.css', {
-            allChunks : true,
-            disable : global.webpack.server || global.webpack.development
-        })
-    ],
+    plugins     : require('./plugins'),
     postcss : require('./postcss')
 };
