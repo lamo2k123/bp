@@ -1,3 +1,5 @@
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 const server = [{
     test    : /\.js$/,
     include : global.webpack.src,
@@ -15,6 +17,10 @@ const server = [{
 const config = {
     client : {
         development : [{
+            test    : /\.pcss$/,
+            loader  : ExtractTextPlugin.extract('style', 'css?sourceMap&localIdentName=[local]-[hash:base64:5]'),
+            include : global.webpack.src
+        }, {
             test    : /\.js$/,
             include : global.webpack.src,
             loader  : 'babel',
@@ -61,14 +67,28 @@ const config = {
                     'transform-es2015-modules-commonjs'
                 ]
             }
+        }, {
+            test    : /\.pcss$/,
+            loader  : ExtractTextPlugin.extract('style', 'css?sourceMap&localIdentName=[hash:base64:8]'),
+            include : global.webpack.src
         }]
     },
     server : {
         development : [
-            ...server
+            ...server,
+            {
+                test    : /\.pcss$/,
+                loader  : 'css/locals?localIdentName=[local]-[hash:base64:5]',
+                include : global.webpack.src
+            }
         ],
         production  : [
-            ...server
+            ...server,
+            {
+                test    : /\.pcss$/,
+                loader  : 'css/locals?localIdentName=[hash:base64:8]',
+                include : global.webpack.src
+            }
         ]
     }
 };

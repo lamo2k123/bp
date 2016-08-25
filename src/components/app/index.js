@@ -20,7 +20,7 @@ class App extends Component {
 
     render() {
         return(
-            <div>
+            <div className={style['test']}>
                 <div onClick={this.onClick}>header</div>
                 {this.props.children}
                 <div>footer</div>

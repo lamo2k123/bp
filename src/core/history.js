@@ -1,5 +1,5 @@
 import { createHistory, createMemoryHistory } from 'history';
 
-const history = TYPE == 'client' ? createHistory() : createMemoryHistory();
+const history = CLIENT ? createHistory() : createMemoryHistory();
 
 export default history;

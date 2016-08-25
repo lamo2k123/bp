@@ -4,11 +4,11 @@
   "version": "0.0.1",
   "scripts": {
     "start": "node build/server",
-
-    "build:server": "webpack --config webpack -s",
-    "build:client": "webpack --config webpack",
-
-    "wds": "webpack-dev-server --config webpack --hot --inline"
+    "build:server": "webpack --config webpack --server --production",
+    "build:server:development": "webpack --config webpack --server",
+    "build:client": "webpack --config webpack --production",
+    "build:client:development": "webpack --config webpack",
+    "development": "webpack-dev-server --config webpack --hot --inline"
   },
   "dependencies": {
     "body-parser": "1.15.2",
@@ -35,6 +35,9 @@
     "webpack": "1.13.2",
     "webpack-dev-server": "1.15.0",
     "webpack-node-externals": "1.3.3",
-    "postcss-nested": "1.0.0"
+    "postcss-nested": "1.0.0",
+    "css-loader": "0.24.0",
+    "style-loader": "0.13.1",
+    "extract-text-webpack-plugin": "1.0.1"
   }
 }

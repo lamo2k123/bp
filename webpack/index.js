@@ -1,8 +1,8 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
 
-const env = process.argv.indexOf('-p', 2) !== -1;
-const type = process.argv.indexOf('-s', 2) !== -1;
+const env = process.argv.indexOf('--production', 2) !== -1;
+const type = process.argv.indexOf('--server', 2) !== -1;
 
 global.webpack = {
     src         : resolve(__dirname, '..', 'src'),
@@ -14,6 +14,8 @@ global.webpack = {
     env         : env ? 'production' : 'development',
     type        : type ? 'server' : 'client'
 };
+
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     context         : global.webpack.src,
@@ -31,8 +33,18 @@ module.exports = {
     },
     plugins     : [
         new webpack.DefinePlugin({
-            TYPE    : JSON.stringify(global.webpack.type),
-            ENV     : JSON.stringify(global.webpack.env)
+            CLIENT      : global.webpack.client,
+            SERVER      : global.webpack.server,
+            PRODUCTION  : global.webpack.production,
+            DEVELOPMENT : global.webpack.development,
+
+            // @todo: ??
+            TYPE        : JSON.stringify(global.webpack.type),
+            ENV         : JSON.stringify(global.webpack.env)
+        }),
+        new ExtractTextPlugin('style.css', {
+            allChunks : true,
+            disable : global.webpack.server || global.webpack.development
         })
     ],
     postcss : require('./postcss')
