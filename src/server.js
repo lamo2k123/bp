@@ -2,6 +2,8 @@ import http from 'http';
 import https from 'https';
 import express from 'express';
 import React from 'react';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import cookieParser from 'cookie-parser';
 import { urlencoded, json } from 'body-parser';
 import { resolve } from 'universal-router';
@@ -18,6 +20,9 @@ app.use(urlencoded({ extended: true }));
 app.use(json());
 
 app.get('*', (req, res, next) => {
+    // @TODO: REdusers
+    const store = createStore(() => 0);
+
     let statusCode = 200;
 /*
         let css = [];
@@ -41,16 +46,17 @@ app.get('*', (req, res, next) => {
                 // statusCode = status;
 /*                data.children = ReactDOM.renderToString(component);
                 data.style = css.join('');*/
-                return component;
+                return(
+                    <Provider store={store}>{component}</Provider>
+                );
             }
         }).then(
             component => {
                 console.log('RESOLVE', component);
                 const props = {
+                    store,
                     children : renderToString(component)
                 };
-
-                console.log('props', props);
 
                 const html = renderToStaticMarkup(<Html {...props} />);
 

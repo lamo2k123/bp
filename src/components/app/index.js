@@ -5,6 +5,10 @@ import history from 'core/history';
 
 class App extends Component {
 
+    static contextTypes = {
+        store : PropTypes.object.isRequired
+    };
+
     static propTypes = {
 
     };
@@ -19,6 +23,7 @@ class App extends Component {
     };
 
     render() {
+        console.log('YY', this.context.store);
         return(
             <div className={style['test']}>
                 <div onClick={this.onClick}>header</div>

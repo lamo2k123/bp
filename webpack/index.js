@@ -1,5 +1,4 @@
 const { resolve } = require('path');
-const webpack = require('webpack');
 
 const env = process.argv.indexOf('--production', 2) !== -1;
 const type = process.argv.indexOf('--server', 2) !== -1;
