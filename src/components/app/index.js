@@ -2,6 +2,7 @@ import style from './style';
 
 import React, { Component, PropTypes } from 'react';
 import history from 'core/history';
+import DevTools from 'component/dev-tools';
 
 class App extends Component {
 
@@ -29,6 +30,7 @@ class App extends Component {
                 <div onClick={this.onClick}>header</div>
                 {this.props.children}
                 <div>footer</div>
+                <DevTools />
             </div>
         );
     }

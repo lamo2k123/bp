@@ -1,5 +1,6 @@
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const DaemonCommandPlugin = require('daemon-command-webpack-plugin');
 
 const common = [
     new webpack.DefinePlugin({
@@ -20,6 +21,12 @@ const common = [
     })
 ];
 
+const server = {
+    development : [
+        new DaemonCommandPlugin('start')
+    ]
+};
+
 const config = {
     client : {
         development : [
@@ -31,7 +38,8 @@ const config = {
     },
     server : {
         development : [
-            ...common
+            ...common,
+            ...server.development
         ],
         production  : [
             ...common
